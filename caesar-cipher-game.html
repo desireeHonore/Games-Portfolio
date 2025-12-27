@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Caesar Cipher</title>
+    </head>
+    <body>
+        <h2>Caesar Cipher</h2>
+        <img style="width:160px" src="caesar-cipher-wheel.png" alt="Caesar Cipher Wheel"><br>
+        Secret Message: <input id="secretmessage" style="width: 475px"><br>
+        Encrypted Message: <input id="encryptedmessage" style="width:450px"><br>
+        <button onclick="encryptMsg()">Encrypt Message</button>
+        <button onclick="decryptMsg()">Decrypt Message</button>
+        <button onclick="bruteForceDecrypt()">Brute Force Decrypt</button>
+        
+        
+        <script>
+            var letters   ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var encLetters="DEFGHIJKLMNOPQRSTUVWXYZABC";
+            
+            
+            function encryptMsg()
+            {
+                var secretMsg=document.getElementById("secretmessage");
+                var encryptedMsg=document.getElementById("encryptedmessage")
+                secretMsg.value=secretMsg.value.toUpperCase();
+                encryptedMsg.value="";
+                
+                for(var s=0;s<secretMsg.value.length;s++)
+                {
+                    var foundLetter=false;
+                    for(var c=0;c<letters.length;c++)
+                    {
+                        if(secretMsg.value[s]==letters[c])
+                        {
+                            encryptedMsg.value+=encLetters[c];
+                            foundLetter=true;
+                            break;
+                        }
+                    }
+                    if(!foundLetter)
+                    {
+                        encryptedMsg.value+=secretMsg.value[s];
+                    }
+                }
+            }
+            
+            function decryptMsg()
+            {
+                var secretMsg=document.getElementById("secretmessage");
+                var encryptedMsg=document.getElementById("encryptedmessage");
+                encryptedMsg.value=encryptedMsg.value.toUpperCase();
+                secretMsg.value="";
+                
+                for(var s=0;s<encryptedMsg.value.length;s++)
+                {
+                    var foundLetter=false;
+                    for(var c=0;c<encLetters.length;c++)
+                    {
+                        if(encryptedMsg.value[s]==encLetters[c])
+                        {
+                            secretMsg.value+=letters[c];
+                            foundLetter=true;
+                            break;
+                        }
+                    }
+                    if(!foundLetter)
+                    {
+                        secretMsg.value+=encryptedMsg.value[s];
+                    }
+                }
+            }
+            
+            function bruteForceDecrypt()
+            {
+                var encryptedMsg=document.getElementById("encryptedmessage")
+                encryptedMsg.value=encryptedMsg.value.toUpperCase();
+                
+                for(var a=0;a<26;a++)
+                {
+                    var possibleSecretMessage="";
+                    for(var s=0;s<encryptedMsg.value.length;s++)
+                    {
+                        var foundLetter=false;
+                        
+                        for(var c=0;c<letters.length;c++)
+                        {
+                            var encLetterIndex=c+a;
+                            if(encLetterIndex>=26)
+                            {
+                                encLetterIndex=encLetterIndex - 26;
+                            }
+                            if(encryptedMsg.value[s]===letters[encLetterIndex])
+                            {
+                                possibleSecretMessage+=letters[c];
+                                foundLetter=true;
+                                break;
+                            }
+                        }
+                        if(!foundLetter)
+                        {
+                            possibleSecretMessage+=encryptedMsg.value[s];
+                        }
+                    }
+                    console.log("Cipher Shift: " + a + ", Message: " + possibleSecretMessage);
+                }
+            }
+            
+            
+            
+            
+            
+        </script>
+    </body>
+</html>
