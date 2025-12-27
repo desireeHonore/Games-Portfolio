@@ -82,7 +82,7 @@
         .board img {
             width: 120px;
             height: 120px;
-            cursor: url("/media/mallet_up.png"), default;
+            cursor: url("media/mallet_up.png"), default;
             transition: none;
             filter: none;
             position: relative;
@@ -210,7 +210,7 @@
     </style>
 </head>
 <body>
-    <audio id="whack" src="/media/whack.mp3"></audio>
+    <audio id="whack" src="media/whack.mp3"></audio>
     
     <h1>WHACK-A-MOLE</h1>
     
@@ -252,22 +252,22 @@
         var holes = document.getElementsByTagName("img");
 
         // Use actual image files
-        const moleDownImg = "/media/mole_down.png";
-        const moleUpImg = "/media/mole_up.png";
-        const moleHitImg = "/media/mole_hit.png";
+        const moleDownImg = "media/mole_down.png";
+        const moleUpImg = "media/mole_up.png";
+        const moleHitImg = "media/mole_hit.png";
 
         for (var i = 0; i < holes.length; i++) {
             holes[i].src = moleDownImg;
             
             holes[i].onmousedown = function(e) {
-                this.style.cursor = 'url("/media/mallet_down.png"), default';
+                this.style.cursor = 'url("media/mallet_down.png"), default';
                 
                 var whackSound = document.getElementById("whack");
                 whackSound.pause();
                 whackSound.currentTime = 0;
                 whackSound.play();
                 
-                if (this.src.endsWith("/media/mole_up.png")) {
+                if (this.src.endsWith("media/mole_up.png")) {
                     score++;
                     document.getElementById("score").innerHTML = score;
                     this.src = moleHitImg;
@@ -279,7 +279,7 @@
             };
             
             holes[i].onmouseup = function(e) {
-                this.style.cursor = 'url("/media/mallet_up.png"), default';
+                this.style.cursor = 'url("media/mallet_up.png"), default';
                 forceRerender();
             };
         }
